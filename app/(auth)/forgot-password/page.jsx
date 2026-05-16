@@ -159,7 +159,7 @@ export default function ForgotPassword() {
       <Styles />
 
       <header className="px-6 lg:px-12 py-6 flex items-center justify-between relative z-10">
-        <a href="#" className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-3">
           <div className="w-9 h-9 bg-[var(--navy)] flex items-center justify-center text-white font-extrabold notched-sm">DS</div>
           <div className="leading-none">
             <div className="flex items-center gap-2">
@@ -169,7 +169,7 @@ export default function ForgotPassword() {
             <div className="text-[12px] text-[var(--text-mute)] mt-1 font-medium">Internship Program 2026</div>
           </div>
         </a>
-        <a href="#signin" className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors">
+        <a href="/signin" className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors">
           <ChevronLeft size={14} strokeWidth={2.5} /> Back to sign in
         </a>
       </header>
@@ -230,7 +230,7 @@ export default function ForgotPassword() {
                     If <span className="font-semibold text-[var(--navy)]">{email}</span> is connected to an account,
                     we just sent it a reset link. Look for an email from DSHub. Check your spam folder if you don't see it.
                   </p>
-                  <a href="#signin" className="btn-primary mb-3">
+                  <a href="/signin" className="btn-primary mb-3">
                     <span>Back to sign in</span>
                     <ArrowRight size={16} strokeWidth={2.5} />
                   </a>
@@ -303,7 +303,7 @@ export default function ForgotPassword() {
 
                   <div className="mt-7 pt-6 border-t-2 border-dashed border-[var(--border)] text-center">
                     <p className="text-[13px] text-[var(--text-mute)] font-medium">
-                      Remembered it? <a href="#signin" className="text-[var(--blue)] font-semibold underline-grow">Sign in instead</a>
+                      Remembered it? <a href="/signin" className="text-[var(--blue)] font-semibold underline-grow">Sign in instead</a>
                     </p>
                   </div>
                 </>

@@ -3,11 +3,14 @@
 import { useState } from 'react';
 import {
   LayoutGrid, FileText, BarChart3, User, Settings, LogOut, Menu, X,
-  Upload, MessageSquare, CheckCircle2, AlertCircle,
-  Clock, RefreshCw, Github, Globe, FileCheck, Loader2,
+  Upload, Link as LinkIcon, MessageSquare, CheckCircle2, AlertCircle,
+  Clock, RefreshCw, ChevronDown, Github, Globe, FileCheck, Loader2,
   Search, Bell, Calendar, BookOpen, Award
 } from 'lucide-react';
 
+// ============================================================
+// THEME — DSHub brand
+// ============================================================
 const Styles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
@@ -23,6 +26,12 @@ const Styles = () => (
     .dash-root * { -webkit-font-smoothing: antialiased; }
     .pixel { font-family: 'Pixelify Sans', sans-serif; font-weight: 600; }
     .mono { font-family: 'DM Mono', monospace; }
+    .texture-bg {
+      background-color: var(--paper);
+      background-image:
+        repeating-linear-gradient(135deg, transparent 0, transparent 22px, rgba(33,150,243,0.05) 22px, rgba(33,150,243,0.05) 23px),
+        repeating-linear-gradient(45deg, transparent 0, transparent 28px, rgba(27,45,92,0.03) 28px, rgba(27,45,92,0.03) 29px);
+    }
     .notched { clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px); }
     .notched-sm { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
     .pill-yellow { background: var(--yellow); color: var(--navy); font-weight: 800; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 9px; display: inline-block; line-height: 1.3; }
@@ -41,7 +50,7 @@ const Styles = () => (
     .btn-primary { background: var(--blue); color: var(--navy); padding: 12px 22px; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid var(--blue); cursor: pointer; transition: background 220ms ease, color 220ms ease; font-family: inherit; }
     .btn-primary:hover:not(:disabled) { background: var(--navy); border-color: var(--navy); color: var(--white); }
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-outline { background: transparent; color: var(--navy); padding: 12px 22px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid var(--navy); cursor: pointer; transition: background 220ms ease, color 220ms ease; font-family: inherit; text-decoration: none; }
+    .btn-outline { background: transparent; color: var(--navy); padding: 12px 22px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid var(--navy); cursor: pointer; transition: background 220ms ease, color 220ms ease; font-family: inherit; }
     .btn-outline:hover { background: var(--navy); color: var(--white); }
     @keyframes spin { to { transform: rotate(360deg); } }
     .spin { animation: spin 700ms linear infinite; }
@@ -50,6 +59,7 @@ const Styles = () => (
   `}</style>
 );
 
+// Mock weekly state — in production, fetched from API
 const WEEK_PROMPTS = [
   { week: 1, title: 'Setup & Foundations', desc: 'Set up your dev environment, initialize repos, and submit your first scaffold.' },
   { week: 2, title: 'Component Library', desc: 'Build a reusable component library matching the DSHub design system.' },
@@ -63,6 +73,7 @@ const WEEK_PROMPTS = [
 ];
 
 const INITIAL_STATE = WEEK_PROMPTS.reduce((acc, w) => {
+  // Mock: some weeks completed with feedback, current week pending
   const status =
     w.week <= 3 ? 'approved'
     : w.week === 4 ? 'resubmit'
@@ -100,7 +111,7 @@ const STATUS_LABEL = {
 
 function Sidebar({ open, setOpen, active = 'submissions' }) {
   const items = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, href: '/intern/analytics' },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, href: '/intern' },
     { id: 'submissions', label: 'Submissions', icon: FileCheck, badge: 'W6', href: '/intern/submissions' },
     { id: 'analytics', label: 'My Analytics', icon: BarChart3, href: '/intern/analytics' },
     { id: 'profile', label: 'Profile', icon: User, href: '/intern/profile' },
@@ -171,7 +182,7 @@ function Header({ onMenuClick }) {
 export default function InternSubmissions() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeWeek, setActiveWeek] = useState(6);
-  const [activeTab, setActiveTab] = useState('assignment');
+  const [activeTab, setActiveTab] = useState('assignment'); // assignment | logbook
   const [submissions, setSubmissions] = useState(INITIAL_STATE);
   const [submitting, setSubmitting] = useState(false);
 
@@ -189,6 +200,9 @@ export default function InternSubmissions() {
 
   const handleSubmit = async () => {
     setSubmitting(true);
+    // ============================================================
+    // REAL: POST /api/submissions/{week} with form data + files
+    // ============================================================
     await new Promise(r => setTimeout(r, 900));
     updateField('status', 'submitted');
     setSubmitting(false);
@@ -204,6 +218,7 @@ export default function InternSubmissions() {
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
         <main className="flex-1 p-5 lg:p-8 overflow-x-hidden">
+          {/* WEEK TABS */}
           <div className="mb-6 overflow-x-auto -mx-5 px-5 lg:mx-0 lg:px-0">
             <div className="flex gap-2 min-w-max">
               {WEEK_PROMPTS.map(w => {
@@ -231,6 +246,7 @@ export default function InternSubmissions() {
             </div>
           </div>
 
+          {/* WEEK HEADER */}
           <div className="card notched p-5 lg:p-6 mb-5">
             <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
               <div>
@@ -244,6 +260,7 @@ export default function InternSubmissions() {
             <p className="text-[14px] text-[var(--text-soft)] font-medium leading-relaxed">{prompt.desc}</p>
           </div>
 
+          {/* SUB-TABS */}
           <div className="flex gap-px bg-[var(--border)] mb-5 max-w-md">
             <button
               onClick={() => setActiveTab('assignment')}
@@ -260,6 +277,7 @@ export default function InternSubmissions() {
           </div>
 
           <div className="grid lg:grid-cols-[1fr_320px] gap-5 fade-swap" key={`${activeWeek}-${activeTab}`}>
+            {/* FORM */}
             <section className="card notched p-5 lg:p-7">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-extrabold text-[16px] text-[var(--navy)]">{activeTab === 'assignment' ? 'Assignment Submission' : 'Weekly Logbook'}</h3>
@@ -268,6 +286,7 @@ export default function InternSubmissions() {
 
               {activeTab === 'assignment' ? (
                 <div className="space-y-5">
+                  {/* File upload */}
                   <div>
                     <label className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-soft)] block mb-1.5">Project file</label>
                     <label className="block border-2 border-dashed border-[var(--border)] p-5 text-center cursor-pointer hover:border-[var(--navy)] transition-colors notched-sm">
@@ -280,6 +299,7 @@ export default function InternSubmissions() {
                     </label>
                   </div>
 
+                  {/* Live link */}
                   <div>
                     <label className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-soft)] block mb-1.5">Deployed link</label>
                     <div className="field-wrap notched-sm">
@@ -291,6 +311,7 @@ export default function InternSubmissions() {
                     </div>
                   </div>
 
+                  {/* Repo */}
                   <div>
                     <label className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-soft)] block mb-1.5">GitHub repository</label>
                     <div className="field-wrap notched-sm">
@@ -302,6 +323,7 @@ export default function InternSubmissions() {
                     </div>
                   </div>
 
+                  {/* Notes */}
                   <div>
                     <label className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--text-soft)] block mb-1.5">Notes for your mentor</label>
                     <textarea
@@ -353,6 +375,7 @@ export default function InternSubmissions() {
               </div>
             </section>
 
+            {/* FEEDBACK PANEL */}
             <aside className="space-y-4">
               <div className="card notched-sm p-5">
                 <div className="flex items-center gap-2 mb-4">

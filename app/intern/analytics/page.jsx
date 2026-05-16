@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, RadialBarChart, RadialBar
 } from 'recharts';
 import {
-  LayoutGrid, BarChart3, User, Settings, LogOut, Menu, X,
-  AlertCircle, RefreshCw, MessageSquare,
+  LayoutGrid, FileText, BarChart3, User, Settings, LogOut, Menu, X,
+  CheckCircle2, AlertCircle, Clock, RefreshCw, MessageSquare, Award,
   TrendingUp, Search, Bell, Calendar, FileCheck
 } from 'lucide-react';
 
@@ -99,9 +99,9 @@ function CustomTooltip({ active, payload, label }) {
 
 function Sidebar({ open, setOpen }) {
   const items = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, active: true, href: '/intern/analytics' },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, href: '/intern' },
     { id: 'submissions', label: 'Submissions', icon: FileCheck, href: '/intern/submissions' },
-    { id: 'analytics', label: 'My Analytics', icon: BarChart3, href: '/intern/analytics' },
+    { id: 'analytics', label: 'My Analytics', icon: BarChart3, active: true, href: '/intern/analytics' },
     { id: 'profile', label: 'Profile', icon: User, href: '/intern/profile' },
     { id: 'settings', label: 'Settings', icon: Settings, href: '/intern/settings' },
   ];
@@ -173,6 +173,7 @@ export default function InternAnalytics() {
         </header>
 
         <main className="flex-1 p-5 lg:p-8">
+          {/* KPI Row */}
           <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 reveal">
             <div className="card notched-sm p-5">
               <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--text-mute)] mb-3">Overall Progress</div>
@@ -211,6 +212,7 @@ export default function InternAnalytics() {
             </div>
           </section>
 
+          {/* Charts row */}
           <section className="grid lg:grid-cols-[1.6fr_1fr] gap-5 mb-6 reveal" style={{ animationDelay: '60ms' }}>
             <div className="card notched p-5 lg:p-6">
               <div className="flex items-start justify-between mb-5">
@@ -274,6 +276,7 @@ export default function InternAnalytics() {
             </div>
           </section>
 
+          {/* Feedback + Pending */}
           <section className="grid lg:grid-cols-[1.3fr_1fr] gap-5 reveal" style={{ animationDelay: '180ms' }}>
             <div className="card notched p-5 lg:p-6">
               <div className="flex items-start justify-between mb-5">

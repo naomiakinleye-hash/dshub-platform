@@ -7,6 +7,9 @@ import {
   CheckCircle2, Loader2
 } from 'lucide-react';
 
+// ============================================================
+// THEME — DSHub brand
+// ============================================================
 const Styles = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
@@ -104,6 +107,7 @@ export default function InternOnboarding() {
   };
   const removeSkill = (s) => set('skills', form.skills.filter(x => x !== s));
 
+  // Total steps depends on plan
   const totalSteps = form.plan === 'premium' ? 4 : 3;
   const stepLabels = ['Profile', 'Track', 'Plan', 'Mentor'];
 
@@ -117,14 +121,28 @@ export default function InternOnboarding() {
 
   const next = () => {
     if (!canProceed()) return;
-    if (step === 3 && form.plan === 'regular') { handleFinish(); return; }
-    if (step === 4) { handleFinish(); return; }
+    // Regular plan skips mentor step
+    if (step === 3 && form.plan === 'regular') {
+      handleFinish();
+      return;
+    }
+    if (step === 4) {
+      handleFinish();
+      return;
+    }
     setStep(s => s + 1);
   };
   const back = () => setStep(s => Math.max(1, s - 1));
 
   const handleFinish = async () => {
     setSubmitting(true);
+    // ============================================================
+    // REAL INTEGRATION:
+    // const fd = new FormData();
+    // fd.append('avatar', form.avatar); // verify white bg, dims, format, size <2MB server-side
+    // Object.entries(form).forEach(([k, v]) => k !== 'avatar' && fd.append(k, JSON.stringify(v)));
+    // await fetch('/api/intern/onboarding', { method: 'POST', credentials: 'include', body: fd });
+    // ============================================================
     await new Promise(r => setTimeout(r, 1100));
     setSubmitting(false);
     setDone(true);
@@ -137,7 +155,7 @@ export default function InternOnboarding() {
       <Styles />
 
       <header className="px-6 lg:px-12 py-6 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-3">
+        <a href="#" className="flex items-center gap-3">
           <div className="w-9 h-9 bg-[var(--navy)] flex items-center justify-center text-white font-extrabold notched-sm">DS</div>
           <div className="leading-none">
             <div className="flex items-center gap-2">
@@ -147,7 +165,7 @@ export default function InternOnboarding() {
             <div className="text-[12px] text-[var(--text-mute)] mt-1 font-medium">Intern · Cohort A 2026</div>
           </div>
         </a>
-        <a href="/" className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)]">Save & exit</a>
+        <a href="#" className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)]">Save & exit</a>
       </header>
 
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-12 py-8">
@@ -166,10 +184,11 @@ export default function InternOnboarding() {
                 Plan: <span className="text-[var(--navy)] font-semibold">{form.plan === 'premium' ? 'Premium' : 'Regular'}</span>
                 {form.mentor && <> · Mentor: <span className="text-[var(--navy)] font-semibold">{MENTORS.find(m => m.id === form.mentor)?.name}</span></>}
               </p>
-              <a href="/intern/submissions" className="btn-primary inline-flex"><span>Open my dashboard</span><ArrowRight size={16} strokeWidth={2.5} /></a>
+              <a href="/intern/analytics" className="btn-primary inline-flex"><span>Open my dashboard</span><ArrowRight size={16} strokeWidth={2.5} /></a>
             </div>
           ) : (
             <>
+              {/* Progress */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--text-mute)]">Step {step} of {totalSteps}</span>
@@ -194,6 +213,7 @@ export default function InternOnboarding() {
 
               <div className="bg-white notched p-8 lg:p-10">
 
+                {/* STEP 1 — Profile */}
                 {step === 1 && (
                   <div className="fade-swap" key="s1">
                     <span className="pill-yellow mb-3 inline-block">Step 01</span>
@@ -287,6 +307,7 @@ export default function InternOnboarding() {
                   </div>
                 )}
 
+                {/* STEP 2 — Track */}
                 {step === 2 && (
                   <div className="fade-swap" key="s2">
                     <span className="pill-yellow mb-3 inline-block">Step 02</span>
@@ -318,6 +339,7 @@ export default function InternOnboarding() {
                   </div>
                 )}
 
+                {/* STEP 3 — Plan */}
                 {step === 3 && (
                   <div className="fade-swap" key="s3">
                     <span className="pill-yellow mb-3 inline-block">Step 03</span>
@@ -352,6 +374,7 @@ export default function InternOnboarding() {
                   </div>
                 )}
 
+                {/* STEP 4 — Mentor (Premium only) */}
                 {step === 4 && (
                   <div className="fade-swap" key="s4">
                     <span className="pill-yellow mb-3 inline-block">Step 04</span>
@@ -390,6 +413,7 @@ export default function InternOnboarding() {
                   </div>
                 )}
 
+                {/* NAV */}
                 <div className="flex items-center justify-between gap-3 mt-10 pt-6 border-t-2 border-[var(--border)]">
                   <button onClick={back} disabled={step === 1} className="btn-outline disabled:opacity-30 disabled:pointer-events-none">
                     <ArrowLeft size={14} strokeWidth={2.5} /> Back

@@ -225,7 +225,7 @@ export default function ResetPassword() {
           <p className="text-[14px] text-[var(--text-mute)] mb-6 font-medium">
             This reset link is invalid or has expired. Request a fresh one to continue.
           </p>
-          <a href="#forgot-password" className="btn-primary">
+          <a href="/forgot-password" className="btn-primary">
             <span>Request new link</span>
             <ArrowRight size={16} strokeWidth={2.5} />
           </a>
@@ -239,7 +239,7 @@ export default function ResetPassword() {
       <Styles />
 
       <header className="px-6 lg:px-12 py-6 flex items-center justify-between relative z-10">
-        <a href="#" className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-3">
           <div className="w-9 h-9 bg-[var(--navy)] flex items-center justify-center text-white font-extrabold notched-sm">DS</div>
           <div className="leading-none">
             <div className="flex items-center gap-2">
@@ -249,7 +249,7 @@ export default function ResetPassword() {
             <div className="text-[12px] text-[var(--text-mute)] mt-1 font-medium">Internship Program 2026</div>
           </div>
         </a>
-        <a href="#signin" className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors">
+        <a href="/signin" className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors">
           <ChevronLeft size={14} strokeWidth={2.5} /> Back to sign in
         </a>
       </header>
@@ -317,7 +317,7 @@ export default function ResetPassword() {
                     All other sessions have been signed out. Use your new password to
                     sign back in.
                   </p>
-                  <a href="#signin" className="btn-primary">
+                  <a href="/signin" className="btn-primary">
                     <span>Continue to sign in</span>
                     <ArrowRight size={16} strokeWidth={2.5} />
                   </a>

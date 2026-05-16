@@ -44,35 +44,82 @@ const Styles = () => (
     .pixel-light { font-family: 'Pixelify Sans', sans-serif; font-weight: 400; letter-spacing: 0.01em; }
     .mono { font-family: 'DM Mono', monospace; }
 
+    /* Diagonal line texture */
     .texture-bg {
       background-color: var(--paper);
       background-image:
-        repeating-linear-gradient(135deg, transparent 0, transparent 22px, rgba(33,150,243,0.05) 22px, rgba(33,150,243,0.05) 23px),
-        repeating-linear-gradient(45deg, transparent 0, transparent 28px, rgba(27,45,92,0.03) 28px, rgba(27,45,92,0.03) 29px);
+        repeating-linear-gradient(
+          135deg,
+          transparent 0,
+          transparent 22px,
+          rgba(33,150,243,0.05) 22px,
+          rgba(33,150,243,0.05) 23px
+        ),
+        repeating-linear-gradient(
+          45deg,
+          transparent 0,
+          transparent 28px,
+          rgba(27,45,92,0.03) 28px,
+          rgba(27,45,92,0.03) 29px
+        );
     }
 
+    /* Notched card corners — top-left & bottom-right cut */
     .notched {
-      clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+      clip-path: polygon(
+        18px 0,
+        100% 0,
+        100% calc(100% - 18px),
+        calc(100% - 18px) 100%,
+        0 100%,
+        0 18px
+      );
     }
     .notched-sm {
-      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      clip-path: polygon(
+        10px 0,
+        100% 0,
+        100% calc(100% - 10px),
+        calc(100% - 10px) 100%,
+        0 100%,
+        0 10px
+      );
+    }
+    /* Tab/banner with one angled corner (like name tag in flyer) */
+    .notched-tab {
+      clip-path: polygon(
+        14px 0,
+        100% 0,
+        calc(100% - 14px) 100%,
+        0 100%
+      );
     }
 
+    /* Yellow brand pill */
     .pill-yellow {
-      background: var(--yellow); color: var(--navy);
-      font-weight: 800; font-size: 10px; letter-spacing: 0.14em;
-      text-transform: uppercase; padding: 4px 9px;
-      display: inline-block; line-height: 1.3;
+      background: var(--yellow);
+      color: var(--navy);
+      font-weight: 800;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      display: inline-block;
+      line-height: 1.3;
     }
 
+    /* Role toggle */
     .role-toggle {
-      display: grid; grid-template-columns: 1fr 1fr;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       border: 2px solid var(--navy);
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
       background: var(--white);
     }
     .role-slider {
-      position: absolute; top: 0; bottom: 0;
+      position: absolute;
+      top: 0; bottom: 0;
       width: 50%;
       transition: transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1), background 250ms ease;
       z-index: 0;
@@ -80,43 +127,68 @@ const Styles = () => (
     .role-slider.student { transform: translateX(0); background: var(--blue); }
     .role-slider.mentor { transform: translateX(100%); background: var(--navy); }
     .role-btn {
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
       padding: 13px 16px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: transparent; border: none; cursor: pointer;
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       color: var(--navy);
       transition: color 280ms ease;
     }
     .role-btn.active { color: var(--white); }
+    /* When Student is active, the slider behind is blue — use navy text for contrast */
     .role-toggle.is-student .role-btn.active { color: var(--navy); }
     .role-toggle.is-mentor .role-btn.active { color: var(--white); }
 
+    /* Field */
     .field-input {
-      width: 100%; background: transparent;
-      border: none; outline: none;
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
       padding: 12px 0;
-      font-size: 15px; color: var(--navy);
-      font-family: inherit; font-weight: 500;
+      font-size: 15px;
+      color: var(--navy);
+      font-family: inherit;
+      font-weight: 500;
     }
     .field-input::placeholder { color: var(--text-mute); opacity: 0.6; }
     .field-wrap {
       border-bottom: 2px solid var(--border);
       transition: border-color 200ms ease;
-      display: flex; align-items: center; gap: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .field-wrap:focus-within { border-bottom-color: var(--blue); }
     .field-wrap.has-error { border-bottom-color: var(--error); }
 
+    /* Buttons */
     .btn-primary {
-      background: var(--blue); color: var(--navy);
-      padding: 14px 22px; width: 100%;
-      font-size: 13px; font-weight: 800; letter-spacing: 0.06em;
+      background: var(--blue);
+      color: var(--navy);
+      padding: 14px 22px;
+      width: 100%;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      border: 2px solid var(--blue); cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px solid var(--blue);
+      cursor: pointer;
       transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 100ms ease;
     }
     .btn-primary:hover:not(:disabled) { background: var(--navy); border-color: var(--navy); color: var(--white); }
@@ -125,28 +197,41 @@ const Styles = () => (
     .btn-primary.success { background: var(--success); border-color: var(--success); color: var(--white); }
 
     .btn-sso {
-      background: var(--white); color: var(--navy);
-      padding: 12px 22px; width: 100%;
-      font-size: 14px; font-weight: 600;
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      border: 2px solid var(--border); cursor: pointer;
+      background: var(--white);
+      color: var(--navy);
+      padding: 12px 22px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 2px solid var(--border);
+      cursor: pointer;
       transition: border-color 200ms ease, background 200ms ease;
     }
     .btn-sso:hover { border-color: var(--navy); background: var(--paper-warm); }
 
     .checkbox-mark {
       width: 18px; height: 18px;
-      border: 2px solid var(--navy); background: transparent;
+      border: 2px solid var(--navy);
+      background: transparent;
       display: inline-flex; align-items: center; justify-content: center;
       transition: background 150ms ease, border-color 150ms ease;
       flex-shrink: 0;
     }
     .checkbox-mark.checked { background: var(--blue); border-color: var(--blue); }
 
+    /* Bullet arrow */
     .bullet-arrow::before {
-      content: '›'; color: var(--blue); font-weight: 700; margin-right: 8px;
+      content: '›';
+      color: var(--blue);
+      font-weight: 700;
+      margin-right: 8px;
     }
 
+    /* Animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { animation: fadeUp 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
     @keyframes fadeSwap { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -171,11 +256,22 @@ const Styles = () => (
   `}</style>
 );
 
+// ============================================================
+// HALFTONE DOT PATTERN
+// ============================================================
 function DotPattern({ direction = 'left', color = '#2196F3', className = '' }) {
   const cols = 5;
   const rows = 7;
+  // direction 'left': bigger dots toward right (away from edge)
+  // direction 'right': bigger dots toward left
   return (
-    <svg className={className} width="120" height="170" viewBox="0 0 120 170" aria-hidden="true">
+    <svg
+      className={className}
+      width="120"
+      height="170"
+      viewBox="0 0 120 170"
+      aria-hidden="true"
+    >
       {[...Array(rows)].map((_, row) =>
         [...Array(cols)].map((_, col) => {
           const x = col * 22 + 8;
@@ -183,23 +279,40 @@ function DotPattern({ direction = 'left', color = '#2196F3', className = '' }) {
           const colWeight = direction === 'left' ? col : cols - 1 - col;
           const size = Math.min(5.5, colWeight * 1.0 + 1.5);
           const opacity = 0.35 + colWeight * 0.12;
-          return <circle key={`${row}-${col}`} cx={x} cy={y} r={size} fill={color} opacity={Math.min(opacity, 0.9)} />;
+          return (
+            <circle
+              key={`${row}-${col}`}
+              cx={x}
+              cy={y}
+              r={size}
+              fill={color}
+              opacity={Math.min(opacity, 0.9)}
+            />
+          );
         })
       )}
     </svg>
   );
 }
 
+// ============================================================
+// ROLE CONFIG
+// ============================================================
 const ROLES = {
   student: {
-    label: 'Student',
+    label: 'Intern',
     icon: BookOpen,
     accent: '#2196F3',
     panelKicker: 'Intern Sign In',
     panelHeadline: 'Meet your',
     panelHeadlineEmph: 'cohort.',
     panelBlurb: 'Sign in to view your profile, submit final deliverables, and prepare for the May 30 graduation ceremony.',
-    panelBullets: ['Track your submissions', 'Get feedback from mentors', 'Connect with the alumni network', 'Download your certificate'],
+    panelBullets: [
+      'Track your submissions',
+      'Get feedback from mentors',
+      'Connect with the alumni network',
+      'Download your certificate',
+    ],
     formHeading: 'Welcome back,',
     formHeadingEmph: 'graduate.',
     formSub: 'Pick up where you left off.',
@@ -217,7 +330,12 @@ const ROLES = {
     panelHeadline: 'Meet your',
     panelHeadlineEmph: 'mentees.',
     panelBlurb: 'Sign in to review submissions, post feedback on capstones, and confirm graduation eligibility.',
-    panelBullets: ['Review submission queue', 'Post capstone feedback', 'Host office hours', 'Confirm graduation eligibility'],
+    panelBullets: [
+      'Review submission queue',
+      'Post capstone feedback',
+      'Host office hours',
+      'Confirm graduation eligibility',
+    ],
     formHeading: 'Welcome back,',
     formHeadingEmph: 'mentor.',
     formSub: 'Your review queue is waiting.',
@@ -229,6 +347,9 @@ const ROLES = {
   },
 };
 
+// ============================================================
+// FIELD COMPONENT
+// ============================================================
 function Field({ label, error, icon: Icon, type = 'text', value, onChange, onBlur, autoComplete, name, id, disabled, rightSlot, hint }) {
   const errorId = `${id}-error`;
   return (
@@ -238,10 +359,19 @@ function Field({ label, error, icon: Icon, type = 'text', value, onChange, onBlu
       </label>
       <div className={`field-wrap ${error ? 'has-error' : ''}`}>
         {Icon && <Icon size={16} strokeWidth={2} className="text-[var(--text-mute)]" />}
-        <input id={id} name={name} type={type} value={value} onChange={onChange} onBlur={onBlur}
-          disabled={disabled} autoComplete={autoComplete}
-          aria-invalid={!!error} aria-describedby={error ? errorId : undefined}
-          className="field-input" />
+        <input
+          id={id}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          disabled={disabled}
+          autoComplete={autoComplete}
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
+          className="field-input"
+        />
         {rightSlot}
       </div>
       <div className="min-h-[18px] mt-1.5 flex items-center justify-between">
@@ -257,6 +387,9 @@ function Field({ label, error, icon: Icon, type = 'text', value, onChange, onBlu
   );
 }
 
+// ============================================================
+// SIGN IN
+// ============================================================
 export default function SignIn() {
   const [role, setRole] = useState('student');
   const cfg = ROLES[role];
@@ -314,6 +447,31 @@ export default function SignIn() {
     }
 
     setStatus('loading');
+
+    // ============================================================
+    // REAL INTEGRATION (replace mock below)
+    // ============================================================
+    // const res = await fetch('/api/auth/login', {
+    //   method: 'POST',
+    //   credentials: 'include',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ email, password, role, remember }),
+    // });
+    // if (!res.ok) {
+    //   setStatus('idle');
+    //   setSubmitError('Invalid credentials. Please try again.');
+    //   setShake(true); setTimeout(() => setShake(false), 400);
+    //   return;
+    // }
+    // const { role: serverRole } = await res.json();
+    // // SECURITY: trust serverRole, not the client-side selection.
+    // router.push(serverRole === 'mentor' ? '/mentor' : '/dashboard');
+    //
+    // - Backend sets httpOnly + Secure + SameSite=Lax cookie. Never return JWT in JSON.
+    // - Rate limit by IP + email server-side.
+    // - Same generic error for "user not found" vs "wrong password" (no enumeration).
+    // ============================================================
+
     await new Promise(r => setTimeout(r, 1100));
     const isDemo = email.toLowerCase() === cfg.demoEmail && password === cfg.demoPwd;
     if (!isDemo) {
@@ -324,8 +482,9 @@ export default function SignIn() {
       return;
     }
     setStatus('success');
+    // Redirect to the appropriate portal after the success state shows briefly
     setTimeout(() => {
-      window.location.href = role === 'student' ? '/intern/onboarding' : '/mentor';
+      window.location.href = role === 'student' ? '/intern/analytics' : '/mentor';
     }, 800);
   };
 
@@ -339,9 +498,13 @@ export default function SignIn() {
     <div className="auth-root texture-bg min-h-screen flex flex-col">
       <Styles />
 
+      {/* TOP BRAND BAR */}
       <header className="px-6 lg:px-12 py-6 flex items-center justify-between relative z-10">
         <a href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-[var(--navy)] flex items-center justify-center text-white font-bold notched-sm">DS</div>
+          {/* Logo placeholder — swap with <img src="/logo.svg" /> later */}
+          <div className="w-9 h-9 bg-[var(--navy)] flex items-center justify-center text-white font-bold notched-sm">
+            DS
+          </div>
           <div className="leading-none">
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-[16px] tracking-tight text-[var(--navy)]">DSHub</span>
@@ -355,12 +518,19 @@ export default function SignIn() {
         </a>
       </header>
 
+      {/* MAIN SPLIT */}
       <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-12 pb-12">
         <div className="w-full max-w-6xl grid lg:grid-cols-[1.05fr_1fr] gap-6 lg:gap-10 items-stretch">
 
+          {/* LEFT — Navy brand panel */}
           <aside className="bg-[var(--navy)] text-white p-8 sm:p-10 lg:p-12 relative overflow-hidden notched min-h-[420px] flex flex-col">
-            <div className="absolute top-6 right-6 opacity-90"><DotPattern direction="right" color="#5FB3FF" /></div>
-            <div className="absolute bottom-6 left-6 opacity-70"><DotPattern direction="left" color="#2196F3" /></div>
+            {/* Halftone dots */}
+            <div className="absolute top-6 right-6 opacity-90">
+              <DotPattern direction="right" color="#5FB3FF" />
+            </div>
+            <div className="absolute bottom-6 left-6 opacity-70">
+              <DotPattern direction="left" color="#2196F3" />
+            </div>
 
             <div key={role} className="relative z-10 fade-swap flex-1 flex flex-col">
               <div className="flex items-center gap-2 mb-6">
@@ -372,9 +542,12 @@ export default function SignIn() {
                 <span className="text-[var(--yellow-soft)]">{cfg.panelHeadlineEmph}</span>
               </h1>
 
-              <p className="text-[15px] leading-relaxed text-white/85 max-w-md mb-8">{cfg.panelBlurb}</p>
+              <p className="text-[15px] leading-relaxed text-white/85 max-w-md mb-8">
+                {cfg.panelBlurb}
+              </p>
 
-              <div className="bg-white/8 border border-white/15 p-5 sm:p-6 notched-sm mt-auto" style={{ background: 'rgba(255,255,255,0.06)' }}>
+              <div className="bg-white/8 border border-white/15 p-5 sm:p-6 notched-sm mt-auto"
+                   style={{ background: 'rgba(255,255,255,0.06)' }}>
                 <div className="pill-yellow mb-4">What you'll get</div>
                 <ul className="space-y-2">
                   {cfg.panelBullets.map(b => (
@@ -385,27 +558,43 @@ export default function SignIn() {
             </div>
           </aside>
 
+          {/* RIGHT — Form card */}
           <section className={`bg-white p-7 sm:p-10 lg:p-11 notched relative reveal ${shake ? 'shake' : ''}`}>
-            <div className="absolute -top-4 right-12 opacity-25 hidden sm:block"><DotPattern direction="right" color="#1B2D5C" /></div>
+            {/* Decorative dots top-right of form panel */}
+            <div className="absolute -top-4 right-12 opacity-25 hidden sm:block">
+              <DotPattern direction="right" color="#1B2D5C" />
+            </div>
 
             <div className="relative z-10 max-w-[400px] mx-auto">
+              {/* Role toggle */}
               <div className="mb-7">
-                <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--text-mute)] mb-2">Sign in as</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--text-mute)] mb-2">
+                  Sign in as
+                </div>
                 <div className={`role-toggle is-${role}`} role="tablist" aria-label="Select sign in role">
                   <div className={`role-slider ${role}`} />
-                  <button type="button" role="tab" aria-selected={role === 'student'}
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={role === 'student'}
                     onClick={() => setRole('student')}
-                    className={`role-btn ${role === 'student' ? 'active' : ''}`}>
-                    <BookOpen size={14} strokeWidth={2} /> Student
+                    className={`role-btn ${role === 'student' ? 'active' : ''}`}
+                  >
+                    <BookOpen size={14} strokeWidth={2} /> Intern
                   </button>
-                  <button type="button" role="tab" aria-selected={role === 'mentor'}
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={role === 'mentor'}
                     onClick={() => setRole('mentor')}
-                    className={`role-btn ${role === 'mentor' ? 'active' : ''}`}>
+                    className={`role-btn ${role === 'mentor' ? 'active' : ''}`}
+                  >
                     <Award size={14} strokeWidth={2} /> Mentor
                   </button>
                 </div>
               </div>
 
+              {/* Heading */}
               <div key={`${role}-h`} className="fade-swap mb-7">
                 <h2 className="pixel text-[32px] sm:text-[36px] leading-[1.05] mb-2 text-[var(--navy)]">
                   {cfg.formHeading}<br />
@@ -418,9 +607,12 @@ export default function SignIn() {
               </div>
 
               {submitError && (
-                <div role="alert" aria-live="polite"
+                <div
+                  role="alert"
+                  aria-live="polite"
                   className="mb-5 flex items-start gap-2.5 text-[13px] text-[var(--error)] px-3.5 py-3 border-l-[3px] border-[var(--error)]"
-                  style={{ background: 'rgba(211,47,47,0.07)' }}>
+                  style={{ background: 'rgba(211,47,47,0.07)' }}
+                >
                   <AlertCircle size={15} strokeWidth={2} className="mt-0.5 flex-shrink-0" />
                   <span className="font-medium">{submitError}</span>
                 </div>
@@ -428,17 +620,27 @@ export default function SignIn() {
 
               <form onSubmit={handleSubmit} noValidate>
                 <div className="space-y-4">
-                  <Field id="email" name="email" type="email"
-                    label={role === 'mentor' ? 'Mentor email' : 'Student email'}
-                    icon={Mail} value={email}
+                  <Field
+                    id="email"
+                    name="email"
+                    type="email"
+                    label={role === 'mentor' ? 'Mentor email' : 'Intern email'}
+                    icon={Mail}
+                    value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onBlur={() => handleBlur('email')}
-                    autoComplete="email" disabled={status !== 'idle'}
-                    error={touched.email && errors.email} />
+                    autoComplete="email"
+                    disabled={status !== 'idle'}
+                    error={touched.email && errors.email}
+                  />
 
-                  <Field id="password" name="password"
+                  <Field
+                    id="password"
+                    name="password"
                     type={showPwd ? 'text' : 'password'}
-                    label="Password" icon={Lock} value={password}
+                    label="Password"
+                    icon={Lock}
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onBlur={() => handleBlur('password')}
                     autoComplete="current-password"
@@ -446,23 +648,35 @@ export default function SignIn() {
                     error={touched.password && errors.password}
                     hint={capsLock ? '⚠ Caps Lock is on' : ''}
                     rightSlot={
-                      <button type="button" onClick={() => setShowPwd(s => !s)}
+                      <button
+                        type="button"
+                        onClick={() => setShowPwd(s => !s)}
                         className="text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors p-1"
-                        aria-label={showPwd ? 'Hide password' : 'Show password'} tabIndex={-1}>
+                        aria-label={showPwd ? 'Hide password' : 'Show password'}
+                        tabIndex={-1}
+                      >
                         {showPwd ? <EyeOff size={16} strokeWidth={2} /> : <Eye size={16} strokeWidth={2} />}
                       </button>
-                    } />
-                  <input type="text" tabIndex={-1}
-                    onKeyUp={handlePwdKey} onKeyDown={handlePwdKey}
+                    }
+                  />
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    onKeyUp={handlePwdKey}
+                    onKeyDown={handlePwdKey}
                     aria-hidden="true"
-                    style={{ position: 'absolute', left: '-9999px', width: 0, height: 0 }} />
+                    style={{ position: 'absolute', left: '-9999px', width: 0, height: 0 }}
+                  />
                 </div>
 
                 <div className="flex items-center justify-between mt-5 mb-7">
                   <label className="flex items-center gap-2.5 cursor-pointer group">
-                    <input type="checkbox" checked={remember}
+                    <input
+                      type="checkbox"
+                      checked={remember}
                       onChange={(e) => setRemember(e.target.checked)}
-                      className="sr-only" />
+                      className="sr-only"
+                    />
                     <span className={`checkbox-mark ${remember ? 'checked' : ''}`}>
                       {remember && (
                         <svg width="11" height="11" viewBox="0 0 10 10" fill="none">
@@ -475,11 +689,30 @@ export default function SignIn() {
                   <a href="/forgot-password" className="text-[13px] font-semibold text-[var(--blue)] underline-grow">Forgot password?</a>
                 </div>
 
-                <button type="submit" disabled={status !== 'idle'}
-                  className={`btn-primary ${status === 'success' ? 'success' : ''}`}>
-                  {status === 'loading' && (<><Loader2 size={16} strokeWidth={2.5} className="spin" /><span>Signing in…</span></>)}
-                  {status === 'success' && (<><CheckCircle2 size={16} strokeWidth={2.5} /><span>{cfg.successMsg}</span></>)}
-                  {status === 'idle' && (<><RoleIcon size={15} strokeWidth={2.2} /><span>Sign In as {cfg.label}</span><ArrowRight size={16} strokeWidth={2.5} /></>)}
+                <button
+                  type="submit"
+                  disabled={status !== 'idle'}
+                  className={`btn-primary ${status === 'success' ? 'success' : ''}`}
+                >
+                  {status === 'loading' && (
+                    <>
+                      <Loader2 size={16} strokeWidth={2.5} className="spin" />
+                      <span>Signing in…</span>
+                    </>
+                  )}
+                  {status === 'success' && (
+                    <>
+                      <CheckCircle2 size={16} strokeWidth={2.5} />
+                      <span>{cfg.successMsg}</span>
+                    </>
+                  )}
+                  {status === 'idle' && (
+                    <>
+                      <RoleIcon size={15} strokeWidth={2.2} />
+                      <span>Sign In as {cfg.label}</span>
+                      <ArrowRight size={16} strokeWidth={2.5} />
+                    </>
+                  )}
                 </button>
               </form>
 
@@ -499,8 +732,10 @@ export default function SignIn() {
                 <span>Continue with Google</span>
               </button>
 
-              <div key={`demo-${role}`}
-                className="mt-8 p-3.5 border-2 border-dashed border-[var(--border)] text-[11px] mono leading-relaxed text-[var(--text-mute)] fade-swap">
+              <div
+                key={`demo-${role}`}
+                className="mt-8 p-3.5 border-2 border-dashed border-[var(--border)] text-[11px] mono leading-relaxed text-[var(--text-mute)] fade-swap"
+              >
                 <span className="font-bold uppercase tracking-[0.12em] text-[var(--navy)]">Demo · {cfg.label}</span><br />
                 {cfg.demoEmail}<br />
                 {cfg.demoPwd}
@@ -510,6 +745,7 @@ export default function SignIn() {
         </div>
       </main>
 
+      {/* Bottom link strip — matches flyer footer */}
       <footer className="bg-[var(--navy)] text-white text-center py-4 px-4 text-[13px] font-medium">
         Learn more at <a href="https://internship.dshub.com.ng" className="font-bold italic underline-grow ml-1">https://internship.dshub.com.ng</a>
       </footer>

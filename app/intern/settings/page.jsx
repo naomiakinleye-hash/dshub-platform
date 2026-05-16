@@ -42,7 +42,7 @@ const Styles = () => (
 
 function Sidebar({ open, setOpen }) {
   const items = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, href: '/intern/analytics' },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid, href: '/intern' },
     { id: 'submissions', label: 'Submissions', icon: FileCheck, href: '/intern/submissions' },
     { id: 'analytics', label: 'My Analytics', icon: BarChart3, href: '/intern/analytics' },
     { id: 'profile', label: 'Profile', icon: User, href: '/intern/profile' },
@@ -169,7 +169,7 @@ export default function InternSettings() {
           {/* Notifications */}
           <section className="card notched p-6 lg:p-7">
             <span className="pill-yellow mb-3 inline-block">Notifications</span>
-            <h2 className="pixel text-[24px] text-[var(--navy)] mb-5">When should we ping you?</h2>
+            <h2 className="pixel text-[24px] text-[var(--navy)] mb-5">When should we notify you?</h2>
 
             <div className="divide-y divide-[var(--border)]">
               {[

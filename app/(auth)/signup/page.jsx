@@ -133,11 +133,11 @@ function DotPattern({ direction = 'left', color = '#2196F3' }) {
 // ============================================================
 const ROLES = {
   student: {
-    label: 'Student',
+    label: 'Intern',
     icon: BookOpen,
-    panelKicker: 'Student Sign Up',
+    panelKicker: 'Intern Sign Up',
     panelHeadline: 'Create your',
-    panelHeadlineEmph: 'student account.',
+    panelHeadlineEmph: 'intern account.',
     panelBlurb: 'Set up your profile, then apply to the cohort that fits. Your DSHub account stays with you across every program you join.',
     panelBullets: [
       'Build and edit your profile',
@@ -146,8 +146,8 @@ const ROLES = {
       'Connect with the alumni network',
     ],
     formHeading: 'Sign up as',
-    formHeadingEmph: 'a student.',
-    successMsg: 'Account created. Check your email…',
+    formHeadingEmph: 'an intern.',
+    successMsg: 'Account created. Let\'s set up your profile.',
   },
   mentor: {
     label: 'Mentor',
@@ -164,7 +164,7 @@ const ROLES = {
     ],
     formHeading: 'Sign up as',
     formHeadingEmph: 'a mentor.',
-    successMsg: 'Account created. Check your email…',
+    successMsg: 'Account created. Let\'s set up your profile.',
   },
 };
 
@@ -340,7 +340,7 @@ export default function SignUp() {
 
       {/* TOP BRAND BAR */}
       <header className="px-6 lg:px-12 py-6 flex items-center justify-between relative z-10">
-        <a href="#" className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-3">
           <div className="w-9 h-9 bg-[var(--navy)] flex items-center justify-center text-white font-extrabold notched-sm">DS</div>
           <div className="leading-none">
             <div className="flex items-center gap-2">
@@ -350,7 +350,7 @@ export default function SignUp() {
             <div className="text-[12px] text-[var(--text-mute)] mt-1 font-medium">Internship Program 2026</div>
           </div>
         </a>
-        <a href="#" className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors">
+        <a href="/" className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--text-mute)] hover:text-[var(--navy)] transition-colors">
           <ChevronLeft size={14} strokeWidth={2.5} /> Back to site
         </a>
       </header>
@@ -406,7 +406,7 @@ export default function SignUp() {
                 <div className={`role-toggle is-${role}`} role="tablist" aria-label="Select role">
                   <div className={`role-slider ${role}`} />
                   <button type="button" role="tab" aria-selected={role === 'student'} onClick={() => setRole('student')} className={`role-btn ${role === 'student' ? 'active' : ''}`}>
-                    <BookOpen size={14} strokeWidth={2} /> Student
+                    <BookOpen size={14} strokeWidth={2} /> Intern
                   </button>
                   <button type="button" role="tab" aria-selected={role === 'mentor'} onClick={() => setRole('mentor')} className={`role-btn ${role === 'mentor' ? 'active' : ''}`}>
                     <Award size={14} strokeWidth={2} /> Mentor
@@ -421,7 +421,7 @@ export default function SignUp() {
                   <span className="text-[var(--blue)]">{cfg.formHeadingEmph}</span>
                 </h2>
                 <p className="text-[13px] text-[var(--text-mute)] font-medium">
-                  Already have an account? <a href="#signin" className="text-[var(--blue)] font-semibold underline-grow">Sign in</a>
+                  Already have an account? <a href="/signin" className="text-[var(--blue)] font-semibold underline-grow">Sign in</a>
                 </p>
               </div>
 
@@ -439,10 +439,10 @@ export default function SignUp() {
                   </div>
                   <h3 className="pixel text-[26px] text-[var(--navy)] mb-2">Account created.</h3>
                   <p className="text-[14px] text-[var(--text-mute)] mb-6 font-medium">
-                    We sent a verification link to <span className="font-semibold text-[var(--navy)]">{form.email}</span>. Open it to activate your account.
+                    Welcome, <span className="font-semibold text-[var(--navy)]">{form.name || form.email}</span>. Next, set up your profile so mentors can get to know you.
                   </p>
-                  <a href="#signin" className="btn-primary">
-                    <span>Continue to sign in</span>
+                  <a href="/intern/onboarding" className="btn-primary">
+                    <span>Continue to onboarding</span>
                     <ArrowRight size={16} strokeWidth={2.5} />
                   </a>
                 </div>
