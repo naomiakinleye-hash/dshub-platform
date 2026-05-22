@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { RequireAuth } from '../lib/AuthContext';
 import {
   LayoutGrid, Users, Award, FileCheck, BarChart3, Settings, LogOut,
   Menu, X, ChevronDown, Bell, Search, Layers, ArrowUpRight
@@ -72,6 +73,14 @@ function matchNav(pathname) {
 }
 
 export default function AdminLayout({ children }) {
+  return (
+    <RequireAuth roles={['admin']}>
+      <AdminShell>{children}</AdminShell>
+    </RequireAuth>
+  );
+}
+
+function AdminShell({ children }) {
   const pathname = usePathname();
   const current = matchNav(pathname);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -135,7 +144,7 @@ export default function AdminLayout({ children }) {
               <div className="text-[10px] text-white/60 uppercase tracking-wider">Program Coord.</div>
             </div>
           </div>
-          <Link href="/" className="nav-item text-[12px]">
+          <Link href="/signout" className="nav-item text-[12px]">
             <LogOut size={14} strokeWidth={2} />
             <span>Sign out</span>
           </Link>

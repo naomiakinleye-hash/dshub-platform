@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../lib/AuthContext';
 import {
   Eye, EyeOff, Loader2, ArrowRight, AlertCircle, CheckCircle2,
   Lock, Mail, ChevronLeft, BookOpen, Award
@@ -392,6 +393,7 @@ function Field({ label, error, icon: Icon, type = 'text', value, onChange, onBlu
 // ============================================================
 export default function SignIn() {
   const [role, setRole] = useState('student');
+  const { login } = useAuth();
   const cfg = ROLES[role];
   const RoleIcon = cfg.icon;
 
@@ -447,45 +449,23 @@ export default function SignIn() {
     }
 
     setStatus('loading');
+    setSubmitError('');
 
-    // ============================================================
-    // REAL INTEGRATION (replace mock below)
-    // ============================================================
-    // const res = await fetch('/api/auth/login', {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email, password, role, remember }),
-    // });
-    // if (!res.ok) {
-    //   setStatus('idle');
-    //   setSubmitError('Invalid credentials. Please try again.');
-    //   setShake(true); setTimeout(() => setShake(false), 400);
-    //   return;
-    // }
-    // const { role: serverRole } = await res.json();
-    // // SECURITY: trust serverRole, not the client-side selection.
-    // router.push(serverRole === 'mentor' ? '/mentor' : '/dashboard');
-    //
-    // - Backend sets httpOnly + Secure + SameSite=Lax cookie. Never return JWT in JSON.
-    // - Rate limit by IP + email server-side.
-    // - Same generic error for "user not found" vs "wrong password" (no enumeration).
-    // ============================================================
-
-    await new Promise(r => setTimeout(r, 1100));
-    const isDemo = email.toLowerCase() === cfg.demoEmail && password === cfg.demoPwd;
-    if (!isDemo) {
+    try {
+      const u = await login(email, password);
+      setStatus('success');
+      // Trust the role from the backend, not the client-side toggle.
+      const dest =
+        u.role === 'admin'  ? '/admin' :
+        u.role === 'mentor' ? '/mentor' :
+                              '/intern';
+      setTimeout(() => { window.location.href = dest; }, 600);
+    } catch (err) {
       setStatus('idle');
-      setSubmitError('Invalid credentials. Please try again.');
+      setSubmitError(err?.message || 'Invalid credentials. Please try again.');
       setShake(true);
       setTimeout(() => setShake(false), 400);
-      return;
     }
-    setStatus('success');
-    // Redirect to the appropriate portal after the success state shows briefly
-    setTimeout(() => {
-      window.location.href = role === 'student' ? '/intern/analytics' : '/mentor';
-    }, 800);
   };
 
   const handlePwdKey = (e) => {

@@ -150,7 +150,7 @@ function Sidebar({ open, setOpen, active = 'submissions' }) {
             <div className="text-[10px] text-white/60 uppercase tracking-wider">Frontend · Premium</div>
           </div>
         </div>
-        <a href="/" className="nav-item w-full text-left text-[12px]"><LogOut size={14} /><span>Sign out</span></a>
+        <a href="/signout" className="nav-item w-full text-left text-[12px]"><LogOut size={14} /><span>Sign out</span></a>
       </div>
     </aside>
   );

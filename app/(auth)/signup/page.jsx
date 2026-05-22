@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useAuth } from '../../lib/AuthContext';
 import {
   Eye, EyeOff, Loader2, ArrowRight, AlertCircle, CheckCircle2,
   Lock, Mail, User, ChevronLeft, BookOpen, Award
@@ -226,6 +227,7 @@ function Field({ label, error, icon: Icon, type = 'text', value, onChange, onBlu
 // ============================================================
 export default function SignUp() {
   const [role, setRole] = useState('student');
+  const { register } = useAuth();
   const cfg = ROLES[role];
   const RoleIcon = cfg.icon;
 
@@ -302,36 +304,30 @@ export default function SignUp() {
     }
 
     setStatus('loading');
+    setSubmitError('');
 
-    // ============================================================
-    // REAL INTEGRATION (replace mock below)
-    // ============================================================
-    // const res = await fetch('/api/auth/register', {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     name: form.name, email: form.email, password: form.password, role,
-    //   }),
-    // });
-    // if (!res.ok) {
-    //   const err = await res.json().catch(() => ({}));
-    //   setStatus('idle');
-    //   setSubmitError(err.code === 'EMAIL_TAKEN' ? 'An account with this email already exists.' : 'Could not create account. Please try again.');
-    //   setShake(true); setTimeout(() => setShake(false), 400);
-    //   return;
-    // }
-    // // Backend sends verification email. After verification, user can apply via /apply.
-    // setStatus('success');
-    //
-    // SECURITY:
-    // - Backend hashes password with bcrypt/argon2id. Never store plaintext.
-    // - Verify email before activating the account.
-    // - Rate limit signups by IP to prevent spam.
-    // ============================================================
-
-    await new Promise(r => setTimeout(r, 1100));
-    setStatus('success');
+    try {
+      await register({
+        fullName: form.name,
+        email: form.email,
+        password: form.password,
+        role: role === 'student' ? 'intern' : 'mentor',
+      });
+      setStatus('success');
+    } catch (err) {
+      setStatus('idle');
+      // Surface field-level errors (e.g. "email": "already taken")
+      if (err?.fieldErrors && Object.keys(err.fieldErrors).length) {
+        const mapped = {};
+        if (err.fieldErrors.fullName) mapped.name = err.fieldErrors.fullName;
+        if (err.fieldErrors.email)    mapped.email = err.fieldErrors.email;
+        if (err.fieldErrors.password) mapped.password = err.fieldErrors.password;
+        setErrors(e => ({ ...e, ...mapped }));
+      }
+      setSubmitError(err?.message || 'Could not create account. Please try again.');
+      setShake(true);
+      setTimeout(() => setShake(false), 400);
+    }
   };
 
   return (
